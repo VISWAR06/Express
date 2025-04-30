@@ -1,19 +1,15 @@
 const expr=require('express')
 const app=expr()
-// const http=require('http')
-app.use('/second',(req,res,next)=>{
-    console.log('second page')
-    res.send('<h1>second page</h1>')   
-    })
-app.use('/',(req,res,next)=>{
-console.log('first page')
-res.send('<h1>first page</h1>')   
- }) // always runs so give in second
+const bp=require('body-parser')
 
+app.use(bp.urlencoded())
+app.use('/form',(req,res,next)=>{
+    res.send('<form action="/out" method="POST"><input type="text" name="title"><input type="submit" value="send"> </form>')
+})
+app.use('/out',(req,res,next)=>{
+    console.log('data:',req.body)
+    res.send('<b>product subit</b>')
+})
 
 
 app.listen(3000)
-// const server=http.createServer(app)
-// server.listen(3000)
-// next is used to go to next midware 
-// insd of setheader & wrt use send
